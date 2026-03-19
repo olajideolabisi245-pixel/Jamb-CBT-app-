@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAMB CBT Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="top-bar">
+    <h2>📘 JAMB CBT Pro</h2>
+    <div>
+      <span id="userDisplay" style="margin-right:15px;"></span>
+      <button id="themeToggle" onclick="toggleMode()">🌙</button>
+    </div>
+  </div>
+
+  <!-- Login Screen -->
+  <div id="loginScreen" class="card">
+    <h3>Login to Start</h3>
+    <input type="text" id="studentName" placeholder="Enter your name" required>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- Start Screen (appears after login) -->
+  <div id="startScreen" class="card hidden">
+    <h3>📅 Select Exam Year</h3>
+    <select id="examYear"></select>
+
+    <h3>⚙️ Exam Settings</h3>
+    <div class="setting-group">
+      <label>Questions per subject:</label>
+      <input type="number" id="questionsPerSubject" min="1" max="60" value="40">
+    </div>
+    <div class="setting-group">
+      <label>Time limit (minutes):</label>
+      <input type="number" id="examMinutes" min="1" max="180" value="30">
+    </div>
+
+    <h3>📚 Select Subjects (English is compulsory)</h3>
+    <div class="subject-group">
+      <label>English</label>
+      <input type="text" value="Use of English" disabled>
+    </div>
+    <div class="subject-group">
+      <label>Additional Subject 1 (optional)</label>
+      <select id="subject2" class="subject-select">
+        <option value="">-- None --</option>
+        <option>Mathematics</option>
+        <option>Physics</option>
+        <option>Chemistry</option>
+        <option>Biology</option>
+        <option>Economics</option>
+        <option>Literature</option>
+        <option>Government</option>
+        <option>History</option>
+      </select>
+    </div>
+    <div class="subject-group">
+      <label>Additional Subject 2 (optional)</label>
+      <select id="subject3" class="subject-select">
+        <option value="">-- None --</option>
+        <option>Mathematics</option>
+        <option>Physics</option>
+        <option>Chemistry</option>
+        <option>Biology</option>
+        <option>Economics</option>
+        <option>Literature</option>
+        <option>Government</option>
+        <option>History</option>
+      </select>
+    </div>
+    <div class="subject-group">
+      <label>Additional Subject 3 (optional)</label>
+      <select id="subject4" class="subject-select">
+        <option value="">-- None --</option>
+        <option>Mathematics</option>
+        <option>Physics</option>
+        <option>Chemistry</option>
+        <option>Biology</option>
+        <option>Economics</option>
+        <option>Literature</option>
+        <option>Government</option>
+        <option>History</option>
+      </select>
+    </div>
+
+    <div class="instruction-box">
+      <h4>📋 Instructions</h4>
+      <ul>
+        <li>You choose the number of questions per subject.</li>
+        <li>English is always included. Pick 0–3 additional subjects.</li>
+        <li>Set your own time limit.</li>
+        <li>You can hide/show the question navigator during the exam.</li>
+        <li>Answers are saved automatically.</li>
+      </ul>
+    </div>
+
+    <button onclick="startExam()">Start Exam</button>
+  </div>
+
+  <!-- Exam Screen -->
+  <div id="examScreen" class="hidden">
+    <div class="exam-header">
+      <div id="currentSubject"></div>
+      <div id="timer">30:00</div>
+      <div class="progress-container">
+        <div id="progressBar"></div>
+      </div>
+      <div id="progressText">Answered: 0 | Remaining: 0</div>
+      <button id="togglePanelBtn" onclick="toggleNumberPanel()">📋 Hide</button>
+    </div>
+
+    <div class="main" id="examMain">
+      <div class="question-box">
+        <h3 id="questionText"></h3>
+        <div id="options" class="options-container"></div>
+        <div class="action-buttons">
+          <button onclick="clearAnswer()">🗑️ Clear</button>
+          <button onclick="markForReview()">⭐ Review</button>
+          <button onclick="confirmSubmit()">📤 Submit</button>
+        </div>
+      </div>
+
+      <div class="number-panel" id="numberPanel"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button onclick="prevQuestion()">◀ Previous</button>
+      <button onclick="nextQuestion()">Next ▶</button>
+    </div>
+  </div>
+
+  <!-- Result Screen -->
+  <div id="resultScreen" class="card hidden">
+    <h2>📊 Exam Result</h2>
+    <div id="studentInfo"></div>
+    <div id="aiHint" class="ai-hint"></div>
+    <div id="summaryBox"></div>
+
+    <div class="leaderboard">
+      <h3>🏆 Leaderboard (Top 10)</h3>
+      <div id="leaderboardList"></div>
+    </div>
+
+    <hr>
+    <button onclick="downloadSlip()">📥 Download Result Slip</button>
+    <button onclick="reviewAnswers()">🔍 Review Answers</button>
+    <button onclick="logout()">🚪 Logout</button>
+    <button onclick="location.reload()">🔄 Retake Exam</button>
+
+    <div id="resultDetails" class="result-details hidden"></div>
+  </div>
+
+
+<!-- Question bank files -->
+<script src="2024.js"></script>
+<script src="2024-physics.js"></script>
+<script src="2024-chemistry.js"></script>
+<script src="2024-mathematics.js"></script>
+<script src="2024-biology.js"></script>
+<script src="2024-english.js"></script>
+
+<!-- Arts and Commercial Subjects -->
+<script src="2024-government.js"></script>
+<script src="2024-history.js"></script>
+<script src="2024-economics.js"></script>
+<script src="2024-commerce.js"></script>
+<script src="2024-accounts.js"></script>
+<script src="2024-literature.js"></script>
+<script src="2024-islamic-studies.js"></script>
+
+<script src="2023.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
